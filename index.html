@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Indio Pancho PR | Official Music</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --brand-yt: #FF0000; 
+            --bg-dark: #050505;
+            --glass-bg: rgba(20, 20, 20, 0.6); 
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --text-main: #ffffff;
+            --text-muted: #a0a0a0;
+            --accent: #ff3333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            color: var(--text-main);
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            background-color: var(--bg-dark);
+        }
+
+        /* --- NUEVO: Contenedor del fondo con movimiento --- */
+        .bg-image {
+            position: fixed;
+            top: -5%; /* Margen extra para que el movimiento no muestre bordes cortados */
+            left: -5%;
+            width: 110%;
+            height: 110%;
+            background: url('https://i.imgur.com/PM7csVN.jpg') no-repeat center center;
+            background-size: cover;
+            z-index: -2;
+            animation: moveBackground 20s infinite alternate ease-in-out;
+        }
+
+        /* Animación de movimiento en tiempo real */
+        @keyframes moveBackground {
+            0% { transform: scale(1) translate(0, 0); }
+            100% { transform: scale(1.1) translate(-2%, -2%); }
+        }
+
+        /* Capa oscura sobre el fondo (ahora más transparente para que se note la foto) */
+        .bg-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.5); /* Bajamos de 0.85 a 0.5 */
+            z-index: -1;
+            backdrop-filter: blur(4px); /* Menos blur para más claridad */
+            -webkit-backdrop-filter: blur(4px);
+        }
+
+        /* Header Profesional (ahora centrado) */
+        header {
+            width: 100%;
+            padding: 1.2rem 5%;
+            display: flex;
+            justify-content: center; /* Centramos el logo y nombre */
+            align-items: center;
+            border-bottom: 1px solid var(--glass-border);
+            background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+        }
+
+        .artist-brand {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .artist-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--brand-yt);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
+        }
+
+        .artist-name-header {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.8);
+        }
+
+        .verified-badge {
+            width: 22px;
+            height: 22px;
+            fill: #4A90E2;
+        }
+
+        /* Contenedor Principal */
+        .presentation-container {
+            flex: 1;
+            width: 100%;
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 5%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            animation: fadeIn 1s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Reproductor Principal */
+        .main-player-section {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .player-wrapper {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: #000;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.9), 0 0 0 1px var(--glass-border);
+            position: relative;
+        }
+
+        .player-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-info {
+            text-align: center;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(8px);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.2rem;
+        }
+
+        /* Animación del título en blanco SIN efecto de resplandor rojo */
+        .animated-title-container {
+            width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .animated-title {
+            display: inline-block;
+            font-size: 2.2rem;
+            font-weight: 800;
+            padding-left: 100%;
+            animation: scrollText 15s linear infinite;
+            
+            /* Color blanco puro */
+            color: #ffffff;
+        }
+
+        @keyframes scrollText {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+
+        .badge-new {
+            background: rgba(255, 0, 0, 0.2);
+            color: #ffffff; /* Letras blancas */
+            padding: 6px 15px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 800;
+            border: 1px solid rgba(255, 0, 0, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.2);
+            display: inline-block;
+        }
+
+        /* Botón Suscribirse Centrado y más llamativo */
+        .btn-subscribe {
+            background: var(--brand-yt);
+            color: white;
+            text-decoration: none;
+            padding: 14px 35px;
+            border-radius: 8px;
+            font-weight: 800;
+            font-size: 1.1rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 5px 20px rgba(255, 0, 0, 0.5);
+            margin-top: 0.5rem;
+        }
+
+        .btn-subscribe:hover {
+            background: #cc0000;
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(255, 0, 0, 0.7);
+        }
+
+        /* Ajustes Responsive (Móvil y PC) */
+        @media (max-width: 768px) {
+            .presentation-container {
+                margin: 1.5rem auto;
+            }
+            .animated-title {
+                font-size: 1.5rem;
+                animation: scrollText 12s linear infinite;
+            }
+            .video-info {
+                padding: 1.5rem 1rem;
+            }
+            .btn-subscribe {
+                width: 100%; /* Botón ancho completo en móviles */
+                padding: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .artist-name-header {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-image"></div>
+    <div class="bg-overlay"></div>
+
+    <header>
+        <div class="artist-brand">
+            <img src="https://i.imgur.com/PM7csVN.jpg" alt="Indio Pancho PR" class="artist-avatar">
+            <div class="artist-name-header">
+                Indio Pancho PR
+                <svg class="verified-badge" viewBox="0 0 24 24">
+                    <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-1.9 14.7L6 12.6l1.5-1.5 2.6 2.6 6.4-6.4 1.5 1.5-7.9 7.9z"/>
+                </svg>
+            </div>
+        </div>
+    </header>
+
+    <main class="presentation-container">
+        
+        <section class="main-player-section">
+            <div class="player-wrapper">
+                <iframe id="mainYoutubePlayer" src="https://www.youtube-nocookie.com/embed/QbzPFvOpw_s?rel=0&modestbranding=1&autohide=1&showinfo=0" title="Video Oficial - Indio Pancho PR" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            </div>
+            
+            <div class="video-info">
+                <div class="animated-title-container">
+                    <div class="animated-title">LA SANTÍ Pancho Indio Crew Ft. JKing y Máximan Rey Rey 👑 Entertainment 💿 Flaco Figueroa 🎥</div>
+                </div>
+                
+                <div class="video-meta">
+                    <span class="badge-new">Lanzamiento Oficial</span>
+                </div>
+
+                <a href="https://youtube.com/@indiopanchopr?si=9MfSS0EO4dg04Y5s" target="_blank" class="btn-subscribe">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M21.582 6.186a2.665 2.665 0 0 0-1.874-1.889C17.962 3.84 12 3.84 12 3.84s-5.962 0-7.708.457a2.665 2.665 0 0 0-1.874 1.889C2 7.947 2 12 2 12s0 4.053.418 5.814a2.665 2.665 0 0 0 1.874 1.889c1.746.457 7.708.457 7.708.457s5.962 0 7.708-.457a2.665 2.665 0 0 0 1.874-1.889C22 16.053 22 12 22 12s0-4.053-.418-5.814zM9.91 15.429V8.571L15.91 12l-6 3.429z"/>
+                    </svg>
+                    <span>SUSCRÍBETE</span>
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+</body>
+</html>
